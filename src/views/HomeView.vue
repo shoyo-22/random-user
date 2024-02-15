@@ -6,9 +6,7 @@
     <div class="row">
       <div class="col mx-2 px-2 py-3 bg-light border rounded">
         <h6>Registered</h6>
-        <p v-if="isLoading">
-          Loading...
-        </p>
+        <base-loader v-if="isLoading" />
         <draggable
           v-else
           class="draggable-list"
@@ -60,12 +58,14 @@
 <script>
 import draggable from 'vuedraggable';
 import UserProfileCard from '@/components/UserProfileCard.vue';
+import BaseLoader from '@/components/BaseLoader.vue';
 
 export default {
   name: 'HomeView',
   components: {
     draggable,
     UserProfileCard,
+    BaseLoader,
   },
   data() {
     return {
