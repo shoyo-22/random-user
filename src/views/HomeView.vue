@@ -3,17 +3,17 @@
     <div class="row my-2">
       <kanban-column
         title="Registered"
-        :users="tasks.registered"
-        :is-loading="isLoading"
+        :users="getRegistratedUsers"
+        :is-loading="getLoadingState"
         is-first-column
       />
       <kanban-column
-        title="Moderation"
-        :users="tasks.moderation"
+        title="Moderated"
+        :users="getModeratedUsers"
       />
       <kanban-column
         title="Approved"
-        :users="tasks.approved"
+        :users="getApprovedUsers"
       />
     </div>
   </div>
@@ -21,6 +21,7 @@
 
 <script>
 import KanbanColumn from '@/components/kanban/KanbanColumn.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'HomeView',
@@ -29,38 +30,27 @@ export default {
   },
   data() {
     return {
-      tasks: {
-        registered: [],
-        moderation: [],
-        approved: [],
-      },
-      isLoading: false,
     };
   },
+  computed: {
+    ...mapGetters([
+      'getRegistratedUsers',
+      'getModeratedUsers',
+      'getApprovedUsers',
+      'getLoadingState',
+    ]),
+  },
   watch: {
-    // eslint-disable-next-line func-names
-    'tasks.registered': function (newArray) {
-      if (!newArray.length) {
-        this.fetchRandomUser();
-      }
+    '$store.getters.isRegisteredArrayEmpty': {
+      handler(newValue) {
+        if (!newValue) {
+          this.$store.dispatch('fetchRandomUser');
+        }
+      },
     },
   },
   mounted() {
-    this.fetchRandomUser();
-  },
-  methods: {
-    async fetchRandomUser() {
-      try {
-        this.isLoading = true;
-        const response = await fetch('https://randomuser.me/api');
-        const randomUserData = await response.json();
-        this.tasks.registered = [...randomUserData.results];
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.isLoading = false;
-      }
-    },
+    this.$store.dispatch('fetchRandomUser');
   },
 };
 </script>
