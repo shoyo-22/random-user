@@ -18,6 +18,16 @@ export default new Vuex.Store({
     getApprovedUsers: (state) => state.users.approved,
     getLoadingState: (state) => state.isLoading,
     isRegisteredArrayEmpty: (state) => state.users.registered.length,
+
+    getFilteredUserData: (state) => (uuid) => {
+      const filteredUserData = [];
+
+      Object.values(state.users).forEach((array) => {
+        filteredUserData.push(...array.filter((user) => user?.login?.uuid === uuid));
+      });
+
+      return filteredUserData[0];
+    },
   },
   mutations: {
     SET_USER(state, user) {
