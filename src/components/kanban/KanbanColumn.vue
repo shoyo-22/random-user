@@ -8,11 +8,16 @@
       :list="users"
       group="users"
     >
-      <user-profile-card
+      <div
         v-for="user in users"
-        :key="user?.id?.value"
-        :user-info="user"
-      />
+        :key="user?.login?.uuid"
+      >
+        <router-link :to="{name:'user-details', params: {id: user?.login?.uuid}}">
+          <user-profile-card
+            :user-info="user"
+          />
+        </router-link>
+      </div>
     </draggable>
   </div>
 </template>
