@@ -12,7 +12,10 @@
         v-for="user in users"
         :key="user?.login?.uuid"
       >
-        <router-link :to="{name:'user-details', params: {id: user?.login?.uuid}}">
+        <router-link
+          class="router-link"
+          :to="{name:'user-details', params: {id: user?.login?.uuid}}"
+        >
           <user-profile-card
             :user-info="user"
           />
@@ -68,5 +71,9 @@ h6 {
 }
 .draggable-list > div {
   cursor: pointer;
+}
+.router-link {
+  text-decoration: none;
+  color: inherit;
 }
 </style>
