@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="row my-2">
+    <div
+      class="my-2"
+      style="display: flex; overflow-x: auto;"
+    >
       <kanban-column
         title="Registered"
         :users="getRegistratedUsers"

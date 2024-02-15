@@ -1,5 +1,5 @@
 <template>
-  <div class="col mx-2 px-2 py-3 bg-light border rounded">
+  <div class="column mx-2 px-2 py-3 bg-light border rounded">
     <h6>{{ title }}</h6>
     <base-loader v-if="isLoading && isFirstColumn" />
     <draggable
@@ -62,7 +62,9 @@ export default {
 h6 {
   font-weight: 700;
 }
-.col {
+.column {
+  flex: 1;
+  min-width: 300px;
   height: 90vh;
   overflow: auto;
 }
