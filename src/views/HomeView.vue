@@ -4,68 +4,31 @@
       Random User App
     </h2>
     <div class="row">
-      <div class="col mx-2 px-2 py-3 bg-light border rounded">
-        <h6>Registered</h6>
-        <base-loader v-if="isLoading" />
-        <draggable
-          v-else
-          class="draggable-list"
-          :list="tasks.registered"
-          group="tasks"
-        >
-          <div
-            v-for="(idea, i) in tasks.registered"
-            :key="i"
-          >
-            <user-profile-card :user-info="idea" />
-          </div>
-        </draggable>
-      </div>
-      <div class="col mx-2 px-2 py-3 bg-light border rounded">
-        <h6>Moderation</h6>
-        <draggable
-          class="draggable-list"
-          :list="tasks.moderation"
-          group="tasks"
-        >
-          <div
-            v-for="(todo, i) in tasks.moderation"
-            :key="i"
-          >
-            <user-profile-card :user-info="todo" />
-          </div>
-        </draggable>
-      </div>
-      <div class="col mx-2 px-2 py-3 bg-light border rounded">
-        <h6>Approved</h6>
-        <draggable
-          class="draggable-list"
-          :list="tasks.approved"
-          group="tasks"
-        >
-          <div
-            v-for="(task, i) in tasks.approved"
-            :key="i"
-          >
-            <user-profile-card :user-info="task" />
-          </div>
-        </draggable>
-      </div>
+      <kanban-column
+        title="Registered"
+        :users="tasks.registered"
+        :is-loading="isLoading"
+        is-first-column
+      />
+      <kanban-column
+        title="Moderation"
+        :users="tasks.moderation"
+      />
+      <kanban-column
+        title="Approved"
+        :users="tasks.approved"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import draggable from 'vuedraggable';
-import UserProfileCard from '@/components/UserProfileCard.vue';
-import BaseLoader from '@/components/BaseLoader.vue';
+import KanbanColumn from '@/components/kanban/KanbanColumn.vue';
 
 export default {
   name: 'HomeView',
   components: {
-    draggable,
-    UserProfileCard,
-    BaseLoader,
+    KanbanColumn,
   },
   data() {
     return {
@@ -104,19 +67,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-h6 {
-  font-weight: 700;
-}
-.col {
-  height: 90vh;
-  overflow: auto;
-}
-.draggable-list {
-  min-height: 10vh;
-}
-.draggable-list > div {
-  cursor: pointer;
-}
-</style>
