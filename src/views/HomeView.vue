@@ -1,9 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="my-2">
-      Random User App
-    </h2>
-    <div class="row">
+    <div class="row my-2">
       <kanban-column
         title="Registered"
         :users="tasks.registered"
