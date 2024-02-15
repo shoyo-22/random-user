@@ -47,10 +47,8 @@ export default {
           this.$store.dispatch('fetchRandomUser');
         }
       },
+      immediate: true,
     },
-  },
-  mounted() {
-    this.$store.dispatch('fetchRandomUser');
   },
 };
 </script>
